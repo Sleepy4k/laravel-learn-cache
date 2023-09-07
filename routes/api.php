@@ -16,12 +16,16 @@ use App\Http\Controllers\Api\CrudController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::any('/', function () {
+    return response()->json([
+        'code' => 200,
+        'message' => 'OK',
+        'data' => [
+            'name' => 'Laravel 10',
+            'version' => '1.0.0',
+            'author' => 'Sleepy4k'
+        ]
+    ], 200);
 });
 
-Route::get('/', CrudController::class . '@index');
-Route::post('/', CrudController::class . '@store');
-Route::get('/{id}', CrudController::class . '@show');
-Route::put('/{id}', CrudController::class . '@update');
-Route::delete('/{id}', CrudController::class . '@destroy');
+Route::apiResource('/crud', CrudController::class);
