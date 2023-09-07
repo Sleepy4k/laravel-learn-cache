@@ -150,11 +150,11 @@ class CrudController extends Controller
         $validated = $validator->validated();
 
         try {
-            $user->update($request->all());
+            $user->update($validated);
 
             if (Cache::has('users')) {
                 $users = Cache::get('users');
-                $users->where('id', $id)->first()->update($request->all());
+                $users->where('id', $id)->first()->update($validated);
                 Cache::put('users', $users, 3600);
             }
 
